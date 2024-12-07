@@ -1,0 +1,66 @@
+body {
+    padding-top: clamp(1.5rem, 3.192vw + 0.752rem, 3.625rem);
+    padding-left: clamp(1.5rem, 30.61vw - 5.674rem, 21.875rem);
+    padding-right: clamp(1.5rem, 30.61vw - 5.674rem, 21.875rem);
+}
+
+header {
+    display: grid;
+    grid-template-columns: 1fr 100px 50px;
+    align-items: center;
+}
+
+.font-select {
+    position: relative;
+}
+.font-select::after {
+    position: absolute;
+    content: url("../assets/images/icon-arrow-down.svg");
+}
+.font-select select {
+    appearance: none;
+    border: none;
+    margin-right: 8px;
+    background: none;
+}
+.theme-switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.theme-switch-container .switch {
+    position: relative;
+    display: inline-block;
+}
+/*  */
+.search-bar-container form {
+    position: relative;
+}
+form .search {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+}
+form button {
+    border: none;
+    background: none;
+}
+form button > svg {
+    width: 15.55px;
+    height: 15.55px;
+}
+.search-bar-container .searchbar {
+    width: 100%;
+    padding: 20px 24px;
+    background-color: #CDCDCD;
+    border: none;
+    border-radius: 16px;
+    outline-color: #A445ED;
+    color: #2D2D2D;
+    font-weight: bold;
+    font-size: clamp(1rem, 0.376vw + 0.912rem, 1.25rem);
+    /* background-image: url("../assets/images/icon-search.svg");
+    background-repeat: no-repeat;
+    background-size: 15.55px 15.55px;
+    background-position: 95% center; */
+}
