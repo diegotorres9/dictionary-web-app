@@ -18,35 +18,52 @@ fetch(dictionaryUrl)
                 <div>
             `
             throw new Error ('Network response not ok')
-
         }
         return response.json();
     })
     .then (searchword => {
         console.log(JSON.stringify(searchword, null, 2));
-        // definitionContainer.innerHTML = JSON.stringify(searchword, null, 2);
         
         searchword.map((search) => {
-            let {word, phonetic, sourceUrls, meanings} = search;
-
-            // console.log(search.meanings);
-
+            let {word, phonetic, sourceUrls, meanings, phonetics} = search;
+            console.log(phonetics);
         definitionContainer.innerHTML = 
         `
         <div>
             <h1>${word}</h1>
             <span>${phonetic}</span>
+            <audio controls src="${phonetics[2].audio}"></audio>
         </div>
 
         <div>
-        ${
-            meanings.map((meaning) => {
-                let{ partOfSpeech, definitions } = meaning;
-                console.log(partOfSpeech);
-                console.log(definitions);
-            })
-        }
-            
+            <div>
+                ${
+                    meanings.map((meaning) => {
+                        let { partOfSpeech } = meaning;
+                        return `
+                            <p>${partOfSpeech}</p>
+                            <span>Meaning</span>
+                            <ul>
+                                ${
+                                    meaning.definitions.map((define) => {
+                                        return `<li>${define.definition}</li>`
+                                    }).join('')
+                                }
+                            </ul>
+                            <div>
+                                ${meaning.synonyms.length === 0 ? '' : `<p>Synonyms</p>`}
+                                <ul>
+                                    ${
+                                        meaning.synonyms.map((synonym) => {
+                                            return synonym.length === 0 ? '' : `<li>${synonym}</li>`
+                                        }).join('')
+                                    }
+                                </ul>
+                            <div>
+                        `;
+                    }).join('') 
+                }
+            </div>
         </div>
 
         <div>
@@ -55,19 +72,6 @@ fetch(dictionaryUrl)
         </div>
         `
         })
-
-
-        // searchword.map((search) => {
-        //     let {word, phonetic, sourceUrls} = search;
-
-        //     definitionContainer.innerHTML = `
-        //     <div>
-        //         <h1>${word}</h1>
-        //         <span>${phonetic}</span>
-        //         <span>Source <a href="${sourceUrls}">${sourceUrls}</a></span>
-        //     </div>
-        //     `
-        // })
     });
 });
 
