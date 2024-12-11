@@ -6,7 +6,8 @@ form.addEventListener("submit", function(e) {
 
 let word = document.getElementById('searchbar').value;
 let dictionaryUrl = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
-// console.log(word);
+
+
 fetch(dictionaryUrl)
     .then(response => {
         if (!response.ok) {
@@ -26,13 +27,32 @@ fetch(dictionaryUrl)
         
         searchword.map((search) => {
             let {word, phonetic, sourceUrls, meanings, phonetics} = search;
-            console.log(phonetics);
+
+            let audios = Object.values(phonetics).filter(audios => audios.audio != "");
+
+
+
         definitionContainer.innerHTML = 
         `
         <div>
             <h1>${word}</h1>
             <span>${phonetic}</span>
-            <audio controls src="${phonetics[2].audio}"></audio>
+            ${
+                audios.map((sound) => {
+                let {audio} = sound;
+                // console.log(audio);
+                // audioSound = new Audio(audio);
+                return `
+                <svg id="play-btn" xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75">
+                    <audio src="${audio}"></audio>                
+                    <g fill="#A445ED" fill-rule="evenodd">
+                        <circle cx="37.5" cy="37.5" r="37.5" opacity=".25"/>
+                        <path d="M29 27v21l21-10.5z"/>
+                    </g>
+                </svg>
+                `
+            })
+            }
         </div>
 
         <div>
